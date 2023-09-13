@@ -67,7 +67,5 @@ def find_sum_and_min_max(vector):
 def factorial(n):
     if n == 0:
         return 1
-    elif n < 0:
-        print("The factorial can only be calculated from a natural number")
     else:
         return n * factorial(n - 1)

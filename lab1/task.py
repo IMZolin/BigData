@@ -27,24 +27,30 @@ class Task:
         print("X vector's weighted norm:", weighted_norm(self.vector_x, self.weights))
 
         self.weights = generate_weights(len(self.vector_y))
-        print("Y vector's first norm:", first_norm(self.vector_y))
+        print("\nY vector's first norm:", first_norm(self.vector_y))
         print("Y vector's second norm:", second_norm(self.vector_y))
         print("Y vector's infinty norm:", infinite_norm(self.vector_y))
         print("Y vector's weighted norm:", weighted_norm(self.vector_y, self.weights))
 
         self.weights = generate_weights(len(self.vector_z))
-        print("Z vector's first norm:", first_norm(self.vector_z))
+        print("\nZ vector's first norm:", first_norm(self.vector_z))
         print("Z vector's second norm:", second_norm(self.vector_z))
         print("Z vector's infinty norm:", infinite_norm(self.vector_z))
         print("Z vector's weighted norm:", weighted_norm(self.vector_z, self.weights))
 
     def task6(self):
         print("TASK 6:")
-        num = int(input("Enter integer to calculate factorial:"))
-        result = factorial(num)
-        if result is not None:
-            print(f"Factorial of {num}:", result)
-
+        try:
+            num = int(input("Enter an integer to calculate factorial: "))
+            if num < 0:
+                print("The factorial can only be calculated for non-negative integers.")
+                self.task6()
+            else:
+                result = factorial(num)
+                print(f"Factorial of {num}: {result}")
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+            self.task6()
     def task7(self):
         print("TASK 7:")
         vector = fill_vector_from_keyboard()
