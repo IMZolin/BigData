@@ -31,7 +31,6 @@ def generate_weights(num_elements):
     weights = [random.uniform(0, 1) for _ in range(num_elements)]
     total_weight = sum(weights)
     weights = [weight / total_weight for weight in weights]
-    print(total_weight)
     return weights
 
 
