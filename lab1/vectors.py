@@ -27,14 +27,13 @@ def fill_weights_from_keyboard(num_elements):
 def generate_weights(num_elements):
     if num_elements <= 0:
         raise ValueError("Number of elements must be greater than 0")
-    weights = []
-    total_weight = 0
-    for i in range(num_elements - 1):
-        weight = random.uniform(0, 1) 
-        weights.append(weight)
-        total_weight += weight
-    weights.append(1 - total_weight)
+    
+    weights = [random.uniform(0, 1) for _ in range(num_elements)]
+    total_weight = sum(weights)
+    weights = [weight / total_weight for weight in weights]
+    print(total_weight)
     return weights
+
 
 def fill_vector_from_vectors(vector1, vector2):
     result = []
