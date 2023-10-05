@@ -36,7 +36,7 @@ def check_kendall(sample, trend, k):
     p_mean = (2.0 / 3.0) * (len(sample) - 2)
     p_disp = (16 * len(sample) - 29) / 90.0
     p_size = len(turning_points)
-    kendall = 1 - (4 * p_size) / (k * (k - 1))
+    kendall = (4 * p_size) / (k * (k - 1))
     p_type = ""
     if p_size < p_mean + p_disp and p_size > p_mean - p_disp:
         p_type ="Randomness"
