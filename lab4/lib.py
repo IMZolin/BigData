@@ -43,7 +43,7 @@ def calculate_turning_points(sample):
             res.append(sample[i])
     return res
 
-def check_kendall(sample, trend, k):
+def check_kendall(sample, trend):
     tail = sample - trend
     turning_points = calculate_turning_points(tail)
     p_mean = (2.0 / 3.0) * (len(sample) - 2)

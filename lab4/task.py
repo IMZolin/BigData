@@ -1,5 +1,9 @@
 from lib import *
 import matplotlib.pyplot as plt
+import pandas as pd
+from dateutil import parser, rrule
+from datetime import datetime, time, date
+from hurst import compute_Hc, random_walk
 
 class Task:
     def __init__(self):
@@ -8,11 +12,11 @@ class Task:
         self.sample = None
     def task1(self):
         print("TASK 1:")
-        sample = generate_sample(self.N, self.h)
-        print("Sample:\n", sample)
+        self.sample = generate_sample(self.N, self.h)
+        print("Sample:\n", self.sample)
         plt.figure()
         plt.title("Task 1")
-        plt.plot(sample, 'o', color = 'black', label = "sample")
+        plt.plot(self.sample, 'o', color = 'black', label = "sample")
         plt.legend()
         
         n = 128
@@ -36,3 +40,27 @@ class Task:
     
     def task2(self):
         print("TASK 2:")
+        data_raw = pd.read_csv('kemerovo.csv')
+        data_raw['MeanTemp'] = data_raw['MeanTemp'].astype(float)
+        data_raw['FullDate'] = pd.to_datetime(data_raw['FullDate'], format='%m/%d/%Y')
+        data = data_raw[['FullDate', 'MeanTemp']]
+        print(data)
+
+        plt.title("Kemerovo (Siberia) trend")
+        plt.plot(data['FullDate'], data['MeanTemp'], label='temp')
+        
+        trend = slide_median(data['MeanTemp'], 55)
+        plt.plot(data['FullDate'], trend, label='trend')
+        plt.legend()
+        
+        check_kendall(trend, data['MeanTemp'])
+        
+        H, c, data_Hc = compute_Hc(trend, kind='random_walk', simplified=False)
+        
+        f, ax = plt.subplots()
+        ax.set_title('Seasonal fluctuations')
+        ax.plot(data_Hc[0], c * data_Hc[0]**H, color="deepskyblue")
+        ax.scatter(data_Hc[0], data_Hc[1], color="purple")
+        
+        print("Hurst exponent (H):", H)
+        plt.show()

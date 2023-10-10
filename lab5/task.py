@@ -6,11 +6,6 @@ class Task:
         self.k = 500
         self.h = 0.05
         self.sample = None
-        self.model = None
-        self.exp001 = None
-        self.exp005 = None
-        self.exp01 = None
-        self.exp03 = None
     def task1(self):
         print("TASK 1:")
         self.sample = generate_data()
