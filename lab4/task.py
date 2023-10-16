@@ -63,4 +63,15 @@ class Task:
         ax.scatter(data_Hc[0], data_Hc[1], color="purple")
         
         print("Hurst exponent (H):", H)
+        # A = prony(data_Hc[0], data_Hc[1])
+        f = np.fft.fft(data['MeanTemp'])
+        ff = f.real * f.real + f.imag * f.imag
+        sz = len(ff)
+        ff = ff[0:100]
+        plt.plot(ff)
+        plt.grid()
+        for delta in [1, 8]:
+            ff = ff[delta:100]
+            print(sz / ((ff.argmax() + delta)), "days")    
         plt.show()
+
