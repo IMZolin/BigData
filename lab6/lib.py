@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def huber(x: np.array, k: float):
     phi = lambda elem: elem if abs(elem) < k else k * np.sign(elem)
@@ -21,6 +22,24 @@ def sigm3_rull(x: np.array):
     clear_res = [val for val in x if is_in_3sigm(val)]
 
     return clear_res
+
+
+def cut_off_outliers(data):
+        q75, q25 = np.percentile(data, [75, 25])
+        iqr = q75 - q25
+        lower_bound = q25 - 1.5 * iqr
+        upper_bound = q75 + 1.5 * iqr
+        return [x for x in data if lower_bound <= x <= upper_bound]
+
+
+def boxplot_rull(x: np.array):
+    outlyings = plt.boxplot(x)
+    clear_res = [i for i in x if not i in outlyings["fliers"]]
+    # x = list(x)
+    # for xx in outlyings["fliers"]:
+    # x
+    return clear_res
+     
 
 
 def double_stage_mean(x: np.array):
